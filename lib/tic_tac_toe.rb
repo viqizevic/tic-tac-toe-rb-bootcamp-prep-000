@@ -34,7 +34,7 @@ def turn(board)
   input = gets.strip
   index = input_to_index(input)
   if valid_move?(board, index)
-    player_move(board, index)
+    player_move(board, index, current_player(board))
     display_board(board)
   else
     turn(board)
@@ -89,9 +89,13 @@ def winner(board)
 end
 
 def play(board)
-  current_turn = 1
-  while current_turn <= 9
+  while !over?(board)
     turn(board)
-    current_turn += 1
+  end
+
+  if gamer = winner(board)
+    puts "Congratulations #{gamer}!"
+  else
+    puts "Cat's Game!"
   end
 end
